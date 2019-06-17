@@ -1,0 +1,17 @@
+server:
+  port: 9001
+
+spring:  application:    name: zuul
+
+eureka:  client:     service-url:
+      defaultZone: http://127.0.0.1:9000/eureka
+      
+zuul:  routes:    user: 
+     service-id: users-provider    # 用户服务的名称
+     path: /user/**               # 服务别名
+    goods: 
+      service-id: goods-provider    # 商品服务的名称
+      path: /goods/**
+    orders: 
+      service-id: orders-provider
+      path: /orders/**        

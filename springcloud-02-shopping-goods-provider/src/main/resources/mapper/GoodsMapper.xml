@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.springcloud.dao.GoodsMapper">
+	<resultMap id="BaseResultMap"
+		type="com.springcloud.entity.Goods">
+		<id column="goods_id" jdbcType="INTEGER" property="goodsId" />
+		<result column="goods_name" jdbcType="VARCHAR"
+			property="goodsName" />
+		<result column="goods_prices" jdbcType="DOUBLE"
+			property="goodsPrices" />
+		<result column="goods_discount" jdbcType="DOUBLE"
+			property="goodsDiscount" />
+		<result column="goods_status" jdbcType="INTEGER"
+			property="goodsStatus" />
+		<result column="goods_count" jdbcType="INTEGER"
+			property="goodsCount" />
+		<result column="goods_is_new" jdbcType="INTEGER"
+			property="goodsIsNew" />
+		<result column="goods_is_hot" jdbcType="INTEGER"
+			property="goodsIsHot" />
+		<result column="goods_level" jdbcType="INTEGER"
+			property="goodsLevel" />
+		<result column="goods_brief" jdbcType="VARCHAR"
+			property="goodsBrief" />
+		<result column="goods_details" jdbcType="VARCHAR"
+			property="goodsDetails" />
+		<result column="goods_photo" jdbcType="VARCHAR"
+			property="goodsPhoto" />
+		<result column="class2_id" jdbcType="INTEGER"
+			property="class2Id" />
+		<result column="class1_id" jdbcType="INTEGER"
+			property="class1Id" />
+	</resultMap>
+	<delete id="deleteByPrimaryKey"
+		parameterType="java.lang.Integer">
+		delete from goods
+		where goods_id =
+		#{goodsId,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.springcloud.entity.Goods">
+		insert into goods (goods_id,
+		goods_name, goods_prices,
+		goods_discount, goods_status, goods_count,
+		goods_is_new, goods_is_hot, goods_level,
+		goods_brief, goods_details,
+		goods_photo,
+		class2_id)
+		values (#{goodsId,jdbcType=INTEGER},
+		#{goodsName,jdbcType=VARCHAR},
+		#{goodsPrices,jdbcType=DOUBLE},
+		#{goodsDiscount,jdbcType=DOUBLE}, #{goodsStatus,jdbcType=INTEGER},
+		#{goodsCount,jdbcType=INTEGER},
+		#{goodsIsNew,jdbcType=INTEGER},
+		#{goodsIsHot,jdbcType=INTEGER},
+		#{goodsLevel,jdbcType=INTEGER},
+		#{goodsBrief,jdbcType=VARCHAR}, #{goodsDetails,jdbcType=VARCHAR},
+		#{goodsPhoto,jdbcType=VARCHAR},
+		#{class2Id,jdbcType=INTEGER})
+	</insert>
+	<update id="updateByPrimaryKey"
+		parameterType="com.springcloud.entity.Goods">
+		update goods
+		set goods_name =
+		#{goodsName,jdbcType=VARCHAR},
+		goods_prices =
+		#{goodsPrices,jdbcType=DOUBLE},
+		goods_discount =
+		#{goodsDiscount,jdbcType=DOUBLE},
+		goods_status =
+		#{goodsStatus,jdbcType=INTEGER},
+		goods_count =
+		#{goodsCount,jdbcType=INTEGER},
+		goods_is_new =
+		#{goodsIsNew,jdbcType=INTEGER},
+		goods_is_hot =
+		#{goodsIsHot,jdbcType=INTEGER},
+		goods_level =
+		#{goodsLevel,jdbcType=INTEGER},
+		goods_brief =
+		#{goodsBrief,jdbcType=VARCHAR},
+		goods_details =
+		#{goodsDetails,jdbcType=VARCHAR},
+		goods_photo =
+		#{goodsPhoto,jdbcType=VARCHAR},
+		class2_id =
+		#{class2Id,jdbcType=INTEGER}
+		where goods_id =
+		#{goodsId,jdbcType=INTEGER}
+	</update>
+	<select id="selectByPrimaryKey"
+		parameterType="java.lang.Integer" resultMap="BaseResultMap">
+		select goods_id,
+		goods_name, goods_prices, goods_discount, goods_status,
+		goods_count,
+		goods_is_new, goods_is_hot, goods_level, goods_brief, goods_details,
+		goods_photo,
+		class2_id
+		from goods
+		where goods_id =
+		#{goodsId,jdbcType=INTEGER}
+	</select>
+	<select id="selectAll" resultMap="BaseResultMap">
+		select goods_id, goods_name,
+		goods_prices, goods_discount, goods_status,
+		goods_count,
+		goods_is_new,
+		goods_is_hot, goods_level, goods_brief, goods_details, goods_photo,
+		class2_id
+		from goods
+	</select>
+	<!-- 查询goods表中满足条件的商品信息 -->
+	<select id="select" parameterType="com.springcloud.entity.Goods"
+		resultMap="BaseResultMap">
+		SELECT
+		g.goods_id,
+		g.goods_name,
+		g.goods_prices,
+		g.goods_discount,
+		g.goods_status,
+		g.goods_count,
+		g.goods_is_new,
+		g.goods_is_hot,
+		g.goods_level,
+		g.goods_brief,
+		goods_details,
+		goods_photo,
+		c2.class2_Id,
+		c1.class1_id
+		FROM
+		class1 c1
+		JOIN class2 c2 ON c1.class1_id = c2.class1_id
+		JOIN goods g ON c2.class2_id = g.class2_id
+
+		<!-- 当第一个条件为and或者or时，使用where条件替换条件中的and或者or -->
+		<trim prefix="where" prefixOverrides="and|or">
+			<if test="goodsName!='%%' and goodsName!='%null%'">
+				g.goods_name like #{goodsName}
+			</if>
+			<if test="goodsPricesMin!=null and goodsPricesMax!=null">
+				and g.goods_prices between #{goodsPricesMin} and
+				#{goodsPricesMin}
+			</if>
+			<if test="class1Id!=-1">
+				and c1.class1_id=#{class1Id}
+			</if>
+			<if test="class2Id!=-1">
+				and c2.class2_id=#{class2Id}
+			</if>
+		</trim>
+	</select>
+	<!-- 根据条件修改GOODS表中的指定商品编号的商品信息 -->
+	<update id="updateGoodsById"
+		parameterType="com.springcloud.entity.Goods">
+		update goods set
+		<if test="goodsIsHot!=null">
+			goods_is_hot=#{goodsIsHot}
+		</if>
+		<if test="goodsIsNew!=null">
+			goods_is_new=#{goodsIsNew}
+		</if>
+		<if test="goodsStatus!=null">
+			goods_status=#{goodsStatus}
+		</if>
+		<if test="goodsPhoto!=null and goodsPhoto!=''">
+			goods_photo=#{goodsPhoto}
+		</if>
+		where goods_id=#{goodsId}
+	</update>
+
+	<!-- 更新指定信息的商品信息 -->
+	<update id="updateGoodsByPrimaryKey"
+		parameterType="com.springcloud.entity.Goods">
+		update goods
+		set goods_name =
+		#{goodsName,jdbcType=VARCHAR},
+		goods_prices =
+		#{goodsPrices,jdbcType=DOUBLE},
+		goods_discount =
+		#{goodsDiscount,jdbcType=DOUBLE},
+		goods_count =
+		#{goodsCount,jdbcType=INTEGER},
+		goods_level =
+		#{goodsLevel,jdbcType=INTEGER},
+		goods_brief =
+		#{goodsBrief,jdbcType=VARCHAR},
+		goods_details =
+		#{goodsDetails,jdbcType=VARCHAR},
+		class2_id =
+		#{class2Id,jdbcType=INTEGER}
+		where goods_id =
+		#{goodsId,jdbcType=INTEGER}
+	</update>
+	<select id="selectGoodsGroup" resultMap="goodsGroupMap">
+		SELECT
+		g.goods_name,
+		sum(od.transaction_count) as group_sum
+		FROM
+		order_detail od
+		JOIN goods g ON od.goods_id = g.goods_id
+		GROUP BY
+		g.goods_name
+		ORDER BY
+		2 DESC
+		LIMIT 0,
+		10
+	</select>
+	<resultMap id="goodsGroupMap" type="com.springcloud.entity.Goods">
+		<result column="goods_name" property="goodsName"/>
+		<result column="group_sum" property="goodsSum"/>
+	</resultMap>
+</mapper>
