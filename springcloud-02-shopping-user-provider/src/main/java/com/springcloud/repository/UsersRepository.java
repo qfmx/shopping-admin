@@ -28,12 +28,12 @@ public interface UsersRepository extends JpaRepository<Users, Integer>, JpaSpeci
 			+ "from Users u where u.userId=:userId and u.userPassword=:userPassword and u.jdictionId=:jdictionId and u.userStatus=0")
 	public abstract Users login(@Param("userId") Integer userId, @Param("userPassword") String userPassword,
 			@Param("jdictionId") Integer jdictionId);
-
 	/**
+	 * 修改USERS表中指定编号的用户状态
 	 * 
-	 * @param userId
-	 * @param userstatus
-	 * @return
+	 * @param userId     用户编号
+	 * @param userstatus 用户状态
+	 * @return 修改成功返回大于0的整数，否则返回0
 	 */
 	@Modifying
 	@Query("update Users set userStatus=:userStatus where userId=:userId")
@@ -79,4 +79,16 @@ public interface UsersRepository extends JpaRepository<Users, Integer>, JpaSpeci
 	@Modifying
 	@Query("update Users u set u.userPassword=:#{#users.userPassword} where u.userId=:#{#users.userId}")
 	public abstract Integer updateUserPassword(@Param("users") Users users);
+	/**
+	 * 
+	 * @param userName 查询条件
+	 * @return
+	 */
+	public abstract Long countByUserName(String userName);
+	/**
+	 * 普通用户登录
+	 * @param users 登录条件
+	 * @return 成功则返回登录用户完整的信息，失败则返回null
+	 */
+	public abstract Users findByUserNameAndUserPasswordAndUserStatusAndJdictionId(String userName,String userPassword,Integer userStutus,Integer jdictionId);
 }

@@ -6,7 +6,7 @@ import lombok.Data;
 
 /**
  * 定义本项目中所有的Controller返回结果类型
- * @author hp
+ * @author Ya
  *
  */
 @Data

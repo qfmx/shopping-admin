@@ -1,17 +1,33 @@
 package com.springcloud.common;
-
+/**
+ * 分页的工具类
+ * @author Ya
+ *
+ */
 public class PageUtils {
-
+	/**
+	 * 设置每页显示数据的行数
+	 */
 	public static final Integer PAGE_ROW_COUNT = 12;
-
+	/**
+	 * 页码
+	 */
 	private Integer pageNumber;
-
+	/**
+	 * 起始行
+	 */
 	// private Integer startRow;
-
+	/**
+	 * 最后一页的页码
+	 */
 	private Integer lastPage;
-
+	/**
+	 * 分页按钮信息
+	 */
 	private int[] pageButton;
-
+	/**
+	 * 总行数
+	 */
 	private Integer pageRowCount;
 
 	public PageUtils(Integer rowCount) {
@@ -24,6 +40,7 @@ public class PageUtils {
 	 */
 	public PageUtils(Integer pageRowCount, Integer rowCount) {
 		this.pageRowCount = pageRowCount;
+		// 计算最后一页的页码
 		this.lastPage = (rowCount + pageRowCount - 1) / pageRowCount;
 	}
 
@@ -53,10 +70,13 @@ public class PageUtils {
 	}
 
 	public int[] getPageButton() {
+		// 分页按钮的起始按钮
 		int startPage;
+		// 分页按钮的结束按钮
 		int endPage;
 
 		if (this.lastPage <= 4) {
+			// 如果页码小于4
 			startPage = 1;
 			endPage = this.lastPage;
 		} else {

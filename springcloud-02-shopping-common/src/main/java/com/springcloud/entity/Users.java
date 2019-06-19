@@ -15,7 +15,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 /**
- *	用于封装用户表的一行数据
+ *	USERS表对应的实体类：用于封装USERS表中一行用户信息
  * @author Ya
  *
  */
@@ -86,7 +86,7 @@ public class Users implements java.io.Serializable {
 	@Column(name = "jdiction_id")
 	private Integer jdictionId;
 	/**
-	 * 用户状态 0未禁用 1已禁用
+	 * 用户状态 0启用 1禁用
 	 */
 	@Column(name = "user_status")
 	private Integer userStatus;

@@ -15,14 +15,18 @@ import com.springcloud.common.PageUtils;
 import com.springcloud.entity.Goods;
 import com.springcloud.service.GoodsService;
 import com.springcloud.vo.ResultValue;
-
+/**
+ * 商品模块控制层
+ * @author Ya
+ *
+ */
 @RequestMapping("goods")
 @RestController
 public class GoodsController {
 	@Autowired
 	private GoodsService goodsService;
 	/**
-	 * 
+	 * 录入用户信息
 	 * @param goods
 	 * @return
 	 */
@@ -83,7 +87,7 @@ public class GoodsController {
 		return rv;
 	}
 	/**
-	 * 更新指定编号的商品信息
+	 * 更新指定编号的商品信息（热卖，新品，状态，商品图片）
 	 * @param goods 更新条件
 	 * @return 将ResultValue对象结果返回的视图层
 	 */

@@ -19,10 +19,10 @@ public interface GoodsMapper {
     int updateByPrimaryKey(Goods record);
     /**
      * 更新商品信息
-     * @param record
-     * @return 成功返回大于0的数
+     * @param goods 更新条件
+     * @return 成功返回大于0的整数，否则返回小于等于0的整数
      */
-    public abstract int updateGoodsByPrimaryKey(Goods goods);
+    public abstract Integer updateGoodsByPrimaryKey(Goods goods);
     /**
      * 	查询满足条件的商品信息
      * @param goods 查询条件
@@ -32,7 +32,7 @@ public interface GoodsMapper {
     /**
      * 更新GOODS表中指定goods_id的商品信息
      * @param goods 需要修改的商品信息
-     * @return 成功返回大于0的整数
+     * @return 成功返回大于0的整数，否则返回小于等于0的整数
      */
     public abstract Integer updateGoodsById(Goods goods);
     /**

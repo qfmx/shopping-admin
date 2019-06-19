@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 /**
- * 用于封装类别二表中的一行数据
+ * class2表对应的实体类，用于保存表中一行二级类别信息
  * @author Ya
  *
  */

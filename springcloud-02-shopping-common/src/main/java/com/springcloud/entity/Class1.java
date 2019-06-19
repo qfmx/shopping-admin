@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 /**
- * 封装类别一表的中的一行数据
+ * CLASS1表对应的实体类，用于保存表中一行一级类别信息
  * @author Ya
  *
  */
@@ -25,7 +25,7 @@ public class Class1 implements java.io.Serializable{
 	 */
     private String class1Name;
     /**
-     * 类别一数量
+     * 类别一序号
      */
     private Integer class1Number;
     /**

@@ -9,11 +9,13 @@
 	</parent>
 	<artifactId>springcloud-02-shopping-eureka-server</artifactId>
 	<dependencies>
+		<!-- 导入Eureka Server的依赖 -->
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-eureka-server</artifactId>
 			<version>1.4.6.RELEASE</version>
 		</dependency>
+		<!-- 导入热部署依赖 -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>

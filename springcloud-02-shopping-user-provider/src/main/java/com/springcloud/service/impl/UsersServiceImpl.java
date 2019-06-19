@@ -1,6 +1,6 @@
 package com.springcloud.service.impl;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -43,27 +43,33 @@ public class UsersServiceImpl implements UsersService{
 		return this.usersRepository.save(users);
 	}
 
-	@SuppressWarnings("serial")
 	@Override
 	public Page<Users> select(Users users, Integer pageNumber) {
-		Specification<Users> specification = new Specification<Users>() {
-
+		// 根据查询数据，创建动态条件
+		@SuppressWarnings("serial")
+		Specification<Users> specificatio = new Specification<Users>() {
 			@Override
 			public Predicate toPredicate(Root<Users> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
-				List<Predicate> whereList = new ArrayList<>();
-				
-				if(users.getUserName()!=null&&!users.getUserName().trim().equals("")) {
+				// 创建List集合，用于保存所有的where条件
+				List<Predicate> whereList = new LinkedList<>();// LinkedList
+
+				// 根据Users中的查询数据，动态创建查询条件
+				if (users.getUserName() != null && !users.getUserName().trim().equals("")) {
 					whereList.add(criteriaBuilder.like(root.get("userName"), "%" + users.getUserName() + "%"));
 				}
-				if(users.getUserStatus()!=-1) {
-					whereList.add(criteriaBuilder.equal(root.get("userStatus"),users.getUserStatus()));
+				if (users.getUserStatus() != -1) {
+					whereList.add(criteriaBuilder.equal(root.get("userStatus"), users.getUserStatus()));
 				}
+				// 将所有的条件以and关系连接在一起，并返回
 				return criteriaBuilder.and(whereList.toArray(new Predicate[whereList.size()]));
 			}
 		};
+		// 创建JPA的分页信息
 		PageRequest of = PageRequest.of(pageNumber, PageUtils.PAGE_ROW_COUNT);
-		return this.usersRepository.findAll(specification,of);
+
+		return this.usersRepository.findAll(specificatio, of);
 	}
+
 	@Transactional
 	@Override
 	public Integer updateStatus(Integer userId, Integer userstatus) {
@@ -90,5 +96,15 @@ public class UsersServiceImpl implements UsersService{
 			return this.usersRepository.updateUserPassword(users);
 		}
 		return 0; // 失败返回0
+	}
+	
+	@Override
+	public Long selectCountByUserName(String userName) {
+		// TODO Auto-generated method stub
+		return this.usersRepository.countByUserName(userName);
+	}
+	@Override
+	public Users userLogin(String userName,String userPassword,Integer userStutus,Integer jdictionId) {
+		return this.usersRepository.findByUserNameAndUserPasswordAndUserStatusAndJdictionId(userName, userPassword, userStutus, jdictionId);
 	}
 }

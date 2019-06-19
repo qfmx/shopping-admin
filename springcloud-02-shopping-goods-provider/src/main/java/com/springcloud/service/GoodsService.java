@@ -6,7 +6,7 @@ import java.util.List;
 import com.github.pagehelper.PageInfo;
 import com.springcloud.entity.Goods;
 /**
- * 商品模块控制层
+ * 商品模型层的接口：用于定义商品模块的方法
  * @author Ya
  *
  */
@@ -29,7 +29,7 @@ public interface GoodsService {
 	/**
 	 * 更新商品GOODS表中指定商品编号的商品信息
 	 * @param goods 更新条件
-	 * @return 成功返回大于0的数
+	 * @return 成功返回大于0的整数，否则返回小于等于0的整数
 	 */
 	public abstract Integer updateGoodsById(Goods goods);
 	/**
@@ -39,8 +39,8 @@ public interface GoodsService {
 	 */
 	public abstract int updateGoodsByPrimaryKey(Goods goods);
 	/**
-	 * 查询前10销量
-	 * @return
+	 * 查询销量前10的商品信息
+	 * @return 成功返回java.util.List类型的实例，否则返回null
 	 */
 	public abstract List<Goods> selectGroupSum();
 }

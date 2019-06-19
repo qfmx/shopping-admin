@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 /**
- * 用与封装订单细节ORDERDETAIL表对应的一行信息
+ * ORDER_DETAILS表对应的实体类，用于封装一行订单明细信息
  * @author Ya
  *
  */

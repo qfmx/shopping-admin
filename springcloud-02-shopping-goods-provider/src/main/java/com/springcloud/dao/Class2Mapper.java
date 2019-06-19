@@ -14,9 +14,9 @@ public interface Class2Mapper {
 
     int updateByPrimaryKey(Class2 record);
     /**
-     * 	��ѯClass2���е�Class1Id����Ϣ
-     * @param class2Id
-     * @return ����List���͵�ʵ��
+     * 查询类别2表中指定类别1编号的二级类别信息
+     * @param class1Id 一级类别编号
+     * @return 成功返回java.util.List类型的实例，否则返回null
      */
     public abstract List<Class2> selectByClass1Id(Integer class1Id);
 }

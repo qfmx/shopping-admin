@@ -12,6 +12,11 @@ import com.springcloud.common.PageUtils;
 import com.springcloud.dao.GoodsMapper;
 import com.springcloud.entity.Goods;
 import com.springcloud.service.GoodsService;
+/**
+ * 商品模型层的实现类：用于实现商品模块的方法
+ * @author Ya
+ *
+ */
 @Service
 public class GoodsServiceImpl implements GoodsService {
 	@Autowired
@@ -44,7 +49,6 @@ public class GoodsServiceImpl implements GoodsService {
 	}
 	@Override
 	public List<Goods> selectGroupSum() {
-		// TODO Auto-generated method stub
 		return this.goodsMapper.selectGoodsGroup();
 	}
 	

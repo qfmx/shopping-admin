@@ -206,4 +206,38 @@ public class UsersController {
 		rv.setMessage("用户信息更新失败");
 		return rv;
 	}
+	@RequestMapping(value = "/countByUserName")
+	public ResultValue countByUserName(@RequestParam("userName") String userName) {
+		ResultValue rv = new ResultValue();
+		try {
+			
+			Long update = this.usersService.selectCountByUserName(userName);
+			if(update > 0) {
+				
+				rv.setCode(0);
+				return rv;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		rv.setCode(1);
+		rv.setMessage("内部服务器错误");
+		return rv;
+	}
+	@RequestMapping(value = "/userLogin")
+	public ResultValue userLogin(@RequestParam("userName") String userName,@RequestParam("userPassword") String userPassword,@RequestParam("userStatus") Integer userStutus, @RequestParam("jdictionId")Integer jdictionId) {
+		ResultValue rv = new ResultValue();
+		try {
+			Users userLogin = this.usersService.userLogin(userName, userPassword, userStutus, jdictionId);
+			if(userLogin != null) {
+				rv.setCode(0);
+				return rv;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		rv.setCode(1);
+		rv.setMessage("登录失败 了");
+		return rv;
+	}
 }

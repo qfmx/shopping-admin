@@ -57,4 +57,16 @@ public interface UsersService {
 	 * @return 成功返回大于0的数，失败返回小于等于0的整数
 	 */
 	public abstract Integer updateMessage(Users users);
+	/**
+	 * 查询用户名出现的次数
+	 * @param UserName
+	 * @return 成功返回大于等于1的整数，失败返回0
+	 */
+	public abstract Long selectCountByUserName(String userName);
+	/**
+	 * 用户登录
+	 * @param user
+	 * @return 成功返回Users类型的一行数据，失败返回空
+	 */
+	public abstract Users userLogin(String userName,String userPassword,Integer userStutus,Integer jdictionId);
 }

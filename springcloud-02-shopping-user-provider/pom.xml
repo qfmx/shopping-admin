@@ -8,14 +8,15 @@
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 	<artifactId>springcloud-02-shopping-user-provider</artifactId>
-	<!-- 导入 springcloud-02-shopping-common的依赖 -->
+
 	<dependencies>
+		<!-- 导入springcloud-02-shopping-common的依赖 -->
 		<dependency>
 			<groupId>com.gmd</groupId>
 			<artifactId>springcloud-02-shopping-common</artifactId>
 			<version>${project.version}</version>
 		</dependency>
-		<!-- 导入springboot的web依赖 -->
+		<!-- 导入SpringBoot的web依赖 -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
@@ -25,7 +26,7 @@
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 		</dependency>
-		<!-- 导入Druid数据库的依赖 -->
+		<!-- 导入Druid数据库池的依赖 -->
 		<dependency>
 			<groupId>com.alibaba</groupId>
 			<artifactId>druid</artifactId>
@@ -40,10 +41,12 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
 		</dependency>
+		<!-- 导入Eureka的依赖 -->
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-eureka</artifactId>
 			<version>1.4.6.RELEASE</version>
 		</dependency>
+		
 	</dependencies>
 </project>

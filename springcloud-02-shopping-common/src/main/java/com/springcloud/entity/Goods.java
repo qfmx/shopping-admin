@@ -5,8 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * GOODS表中的实体类，用于封装表的一行信息
- * @author QFMX
+ * GOODS表中的实体类，用于保存表中的一行商品信息
+ * @author Ya
  *
  */
 @Data
@@ -34,7 +34,7 @@ public class Goods implements java.io.Serializable {
      */
     private Double goodsDiscount;
     /**
-     * 	商品状态
+     * 	商品状态：0预售，1热卖中，2已下架
      */
     private Integer goodsStatus;
     /**
@@ -42,7 +42,7 @@ public class Goods implements java.io.Serializable {
      */
     private Integer goodsCount;
     /**
-     * 	商品是否为新品
+     * 	商品是否为新品：0是新品，1不是新品
      */
     private Integer goodsIsNew;
     /**
@@ -50,7 +50,7 @@ public class Goods implements java.io.Serializable {
      */
     private Integer goodsIsHot;
     /**
-     * 	商品级别
+     * 	商品级别：0-4，5个级别
      */
     private Integer goodsLevel;
     /**
@@ -62,27 +62,27 @@ public class Goods implements java.io.Serializable {
      */
     private String goodsDetails;
     /**
-     * 	商品类别
+     * 	商品图片
      */
     private String goodsPhoto;
     /**
-     * 	一级类别
+     * 	查询条件：一级类型编号
      */
     private Integer class1Id;
     /**
-     * 	二级类别
+     * 	二级类别编号
      */
     private Integer class2Id;
     /**
-     * 	商品下限
+     * 	查询条件：商品价格下限
      */
     private Double goodsPricesMin;
     /**
-     * 	商品上限
+     * 	查询条件：商品价格上限
      */
     private Double goodsPricesMax;
     /**
-     * 	销量总数
+     * 	商品销量：用于保存统计分组的结果
      */
     private Integer goodsSum;
 }

@@ -10,6 +10,11 @@ import com.springcloud.dao.Class2Mapper;
 import com.springcloud.entity.Class1;
 import com.springcloud.entity.Class2;
 import com.springcloud.service.ClassService;
+/**
+ * 用于实现一级类别与二级类别模块的方法
+ * @author Ya
+ *
+ */
 @Service
 public class ClassServiceImpl implements ClassService {
 	@Autowired
@@ -21,7 +26,7 @@ public class ClassServiceImpl implements ClassService {
 	public List<Class2> selectByClass1Id(Integer class1Id) {
 		return this.class2Mapper.selectByClass1Id(class1Id);
 	}
-
+	
 	@Override
 	public List<Class1> selectAllClass1() {
 		return this.class1Mapper.selectAll();

@@ -21,7 +21,7 @@ import com.springcloud.vo.ResultValue;
  */
 @RestController
 public class FileUploadController {
-	// 加载配置文件中用户头像的地址
+	// 从application.properties文件中获得指定键的值，并赋给相应的成员变量
 	@Value("${web.user-path}")
 	private String userPath;
 	// 加载配置文件中商品图片的地址
@@ -43,6 +43,7 @@ public class FileUploadController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		rv.setMessage("用户头像上传失败！！！");
 		rv.setCode(1);
 		return rv;
 	}
@@ -62,6 +63,7 @@ public class FileUploadController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		rv.setMessage("商品图片上传失败！！！");
 		rv.setCode(1);
 		return rv;
 	}
@@ -73,10 +75,16 @@ public class FileUploadController {
 	 * @throws IOException
 	 */
 	private Map<String,Object> uploadFile(String path,MultipartFile file) throws IOException{
+		// 获得新的文件名
 		String fileName = UploadUtils.getFileName();
+		// 根据上传文件的文件名获得文件的扩展名
 		String extendedName = UploadUtils.getExendedName(file.getOriginalFilename());
+		//上传文件
+		// 1.将文件转换为字节类型的数组
 		byte[] bytes = file.getBytes();
+		// 2.创建File类的对象，并设置文件名上传路径及文件名
 		File saveFile = new File(path + fileName + extendedName);
+		// 3.上传文件
 		FileCopyUtils.copy(bytes, saveFile);
 		Map<String, Object> map = new HashMap<>();
 		map.put("fileName", fileName);
@@ -87,6 +95,7 @@ public class FileUploadController {
 	public ResultValue delectImage(@RequestParam("goodsImage") String goodsImage) {
 		ResultValue rv = new ResultValue();
 		try {
+			//从URL中获得用户头像的名字
 			int indexOf = goodsImage.lastIndexOf("/");
 			String fileName = null;
 			if(indexOf != -1) {
@@ -96,7 +105,7 @@ public class FileUploadController {
 			
 			if(fileName != null) {
 				File file = new File(this.goodsPath+fileName);
-				if(file.exists()) {
+				if(file.exists()) { //文件或目录是否存在时
 					file.delete(); //删除图片
 					rv.setCode(0);
 					return rv;
@@ -113,6 +122,7 @@ public class FileUploadController {
 	public ResultValue delectUserPhoto(@RequestParam("userPhoto") String userPhoto) {
 		ResultValue rv = new ResultValue();
 		try {
+			//从URL中获得商品图片的名字
 			int indexOf = userPhoto.lastIndexOf("/");
 			String fileName = null;
 			if(indexOf != -1) {
