@@ -61,14 +61,16 @@ public class ClassController {
 		try {
 			// 调用service相应的方法查询相应二级类别的信息，并保存查询的结果
 			List<Class1> class1 = this.classService.selectAllClass1();
+			List<Class2> list2 = this.classService.selectAllClass2();
 			// 如果查询成功
-			if (class1 != null && class1.size() > 0) {
+			if (class1 != null && class1.size() > 0 && list2.size() >0 && list2 != null) {
 				// 设置结果的状态标记为0
 				rv.setCode(0);
 				// 创建Map集合
 				Map<String, Object> map = new HashMap<>();
 				// 将查询结果存入Map集合中
 				map.put("class1", class1);
+				map.put("class2", list2); // 类别二的信息
 				// 将Map集合存入ResultValue对象中
 				rv.setDataMap(map);
 				// 返回ResultValue对象

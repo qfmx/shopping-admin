@@ -1,0 +1,12 @@
+server:
+  port: 9002
+  
+spring:  application:    name: config-server
+  cloud:    config:      server:        git:          uri: https://github.com/qfmx/SpringCloudConfig.git
+          #username: # 私有库需要填写用户名和密码
+          #password: 
+  
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:9000/eureka/
