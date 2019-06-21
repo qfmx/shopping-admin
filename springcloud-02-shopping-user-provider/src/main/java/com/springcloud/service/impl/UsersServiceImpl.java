@@ -100,7 +100,6 @@ public class UsersServiceImpl implements UsersService{
 	
 	@Override
 	public Long selectCountByUserName(String userName) {
-		// TODO Auto-generated method stub
 		return this.usersRepository.countByUserName(userName);
 	}
 	@Override
