@@ -40,4 +40,14 @@ public interface GoodsMapper {
      * @return 成功返回java.util.List类型的实例，失败返回null
      */
     public abstract List<Goods> selectGoodsGroup();
+    /**
+	 * 查询热卖商品前5条数据
+	 * @return 返回java.util.List<Goods>实例
+	 */
+	public abstract List<Goods> selectGoodsHot();
+	/**
+	 * 查询新品商品前5条数据
+	 * @return 返回java.util.List<Goods>实例
+	 */
+	public abstract List<Goods> selectGoodsNew();
 }

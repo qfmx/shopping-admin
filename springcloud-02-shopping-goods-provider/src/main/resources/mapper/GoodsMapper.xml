@@ -208,4 +208,33 @@
 		<result column="goods_name" property="goodsName"/>
 		<result column="group_sum" property="goodsSum"/>
 	</resultMap>
+	
+	<select id="selectGoodsHot" resultMap="BaseResultMap">
+		SELECT
+		goods_name,
+		goods_prices,
+		goods_discount,
+		goods_status,
+		goods_details,
+		goods_photo,
+		class2_id
+		FROM goods
+		WHERE goods_is_hot=0
+		ORDER BY goods_id ASC
+		LIMIT 0,5
+	</select>
+	<select id="selectGoodsNew" resultMap="BaseResultMap">
+		SELECT
+		goods_name,
+		goods_prices,
+		goods_discount,
+		goods_status,
+		goods_details,
+		goods_photo,
+		class2_id
+		FROM goods
+		WHERE goods_is_new=0
+		ORDER BY goods_id DESC
+		LIMIT 0,5
+	</select>
 </mapper>
