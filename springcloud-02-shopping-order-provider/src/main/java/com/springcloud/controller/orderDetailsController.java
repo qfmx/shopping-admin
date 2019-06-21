@@ -51,4 +51,23 @@ public class orderDetailsController {
 		return rv;
 		
 	}
+	/**
+	 * 
+	 * @param userId
+	 * @param orderDetail
+	 * @return
+	 */
+	@RequestMapping(value = "/addShopping")
+	public ResultValue addShopping(@RequestParam("userId") Integer userId,OrderDetail orderDetail) {
+		ResultValue rv = new ResultValue();
+		try {
+			this.orderDetailService.addShopping(userId, orderDetail);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		rv.setCode(1);
+		rv.setMessage("添加购物车失败");
+		return rv;
+	}
 }

@@ -11,4 +11,5 @@ public interface OrderDetailService {
 	 * @return 成功返回PageInfo<OrderDetail>类型的实例，失败返回null
 	 */
 	public abstract PageInfo<OrderDetail> selctOrderDetailByOrderId(Integer orderId,Integer pageNumber);
+	public abstract boolean addShopping(Integer userId,OrderDetail orderDetails);
 }

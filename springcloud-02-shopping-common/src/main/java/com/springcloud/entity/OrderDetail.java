@@ -39,7 +39,7 @@ public class OrderDetail implements java.io.Serializable{
     /**
      * 交易数量
      */
-    private String transactionCount;
+    private Integer transactionCount;
     /**
      * 	用于保存订单信息的商品
      */

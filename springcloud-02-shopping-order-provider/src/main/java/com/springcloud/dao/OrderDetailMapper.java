@@ -25,4 +25,5 @@ public interface OrderDetailMapper {
      * @return 商品图片地址
      */
     public abstract List<OrderDetail> selectGoodsPhotoByOrderDetailId(Integer orderDetailId);
+    
 }

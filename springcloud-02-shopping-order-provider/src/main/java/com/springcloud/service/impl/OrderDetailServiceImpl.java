@@ -3,6 +3,8 @@ package com.springcloud.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.ListOperations;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import com.github.pagehelper.PageHelper;
@@ -19,6 +21,10 @@ import com.springcloud.service.OrderDetailService;
 public class OrderDetailServiceImpl implements OrderDetailService {
 	@Autowired
 	private OrderDetailMapper orderDetailMapper;
+	
+	@SuppressWarnings("rawtypes")
+	@Autowired
+	private RedisTemplate redisTemplate;
 	@Override
 	public PageInfo<OrderDetail> selctOrderDetailByOrderId(Integer orderId, Integer pageNumber) {
 		
@@ -26,5 +32,51 @@ public class OrderDetailServiceImpl implements OrderDetailService {
 		PageHelper.startPage(pageNumber+1, 5); // 直接设置每页显示5条数据
 		return new PageInfo<>(list);
 	}
+	@Override
+	public boolean addShopping(Integer userId, OrderDetail orderDetail) {
+		try {
+			@SuppressWarnings("unchecked")
+			ListOperations<String,OrderDetail> opsForList = this.redisTemplate.opsForList();
+			//创建Redis数据库中保存数据的键
+			String key = "user" + userId;
+			
+			//向购物车中添加数据
+			//1.获得指定键的list的长度(获得此用户购物车中订单明细的数量)
+			Long size = opsForList.size(key);
+			
+			if(size == 0) {
+				//当前用户的购物车为空，直接将订单明细存入list即可
+				opsForList.leftPush(key,orderDetail);
+			}else {
+				//当前用户的购物车不为空，需要判断购物车中是否存在新购买的订单明细
+				//1.获得Redis中指定键的list中所有数据
+				List<OrderDetail> list = opsForList.range(key, 0, -1);
+				//2.在list中查找新的订单明细是否存在
+				int indexOf = list.indexOf(orderDetail);
+				list.contains(orderDetail);
+				
+				if(indexOf == -1) {
+					//在购物车中没有找到新购买的订单明细，直接将新的订单明细添加到redis中指定键的list中集合
+					opsForList.leftPush(key,orderDetail);
+				}else {
+					//购物车中找到了新购买的订单明细
+					//获得redis中指定键list的第N个元素
+					OrderDetail o = opsForList.index(key, indexOf);
+					Integer num1 = o.getTransactionCount();
+					Integer num2 = orderDetail.getTransactionCount();
+					//修改订单明细的数量
+					o.setTransactionCount(num1 + num2);
+					//将修改后的订单明细重新找回到redis中指定键list原来的位置
+					opsForList.set(key, indexOf, o);
+				}
+			}
+
+			return true;
+		} catch (Exception e) {
+		}
+		return false;
+	}
+
+	
 
 }

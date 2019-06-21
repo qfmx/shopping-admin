@@ -201,8 +201,7 @@
 		g.goods_name
 		ORDER BY
 		2 DESC
-		LIMIT 0,
-		10
+		LIMIT 0,10
 	</select>
 	<resultMap id="goodsGroupMap" type="com.springcloud.entity.Goods">
 		<result column="goods_name" property="goodsName"/>
