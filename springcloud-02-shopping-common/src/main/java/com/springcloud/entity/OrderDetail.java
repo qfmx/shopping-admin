@@ -44,4 +44,36 @@ public class OrderDetail implements java.io.Serializable{
      * 	用于保存订单信息的商品
      */
     private Goods goods;
+    
+    /**
+     * 根据商品编号重写equals()方法：判断新生成的对象是否相等
+     */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		OrderDetail other = (OrderDetail) obj;
+		if (goodsId == null) {
+			if (other.goodsId != null)
+				return false;
+		} else if (!goodsId.equals(other.goodsId))
+			return false;
+		return true;
+	}
+	/**
+	 * 根据商品编号重写hashCode()方法
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((goodsId == null) ? 0 : goodsId.hashCode());
+		return result;
+	}
+    
+    
 }
