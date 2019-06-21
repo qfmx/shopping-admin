@@ -43,7 +43,7 @@ public interface GoodsService {
 	 * @return 成功返回java.util.List类型的实例，否则返回null
 	 */
 	public abstract List<Goods> selectGroupSum();
-	public abstract List<Goods> selectGroup();
+	
 	/**
 	 * 
 	 * @return
