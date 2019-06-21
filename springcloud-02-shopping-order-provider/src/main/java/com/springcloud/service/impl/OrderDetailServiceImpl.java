@@ -76,6 +76,15 @@ public class OrderDetailServiceImpl implements OrderDetailService {
 		}
 		return false;
 	}
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<OrderDetail> selectShopping(Integer userId) {
+		@SuppressWarnings("rawtypes")
+		ListOperations opsForList = this.redisTemplate.opsForList();
+		@SuppressWarnings({ "rawtypes" })
+		List list = opsForList.range("user"+userId, 0, -1); // 获得redis指定键所有的list
+		return list;
+	}
 
 	
 

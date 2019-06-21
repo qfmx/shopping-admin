@@ -70,4 +70,28 @@ public class orderDetailsController {
 		rv.setMessage("添加购物车失败");
 		return rv;
 	}
+	/**
+	 * 从Redis中查询指定用户编号的购物车中商品的信息
+	 * @param userId 用户编号
+	 * @return
+	 */
+	@RequestMapping(value = "/selectShopping")
+	public ResultValue selectShopping(@RequestParam("userId") Integer userId) {
+		ResultValue rv = new ResultValue();
+		try {
+			List<OrderDetail> list = this.orderDetailService.selectShopping(userId);
+			if(list != null && list.size() > 0) {
+				rv.setCode(0);
+				Map<String,Object> map = new HashMap<>();
+				map.put("shoppingList", list);
+				rv.setDataMap(map);
+				return rv;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		rv.setCode(1);
+		rv.setMessage("查询购物车失败");
+		return rv;
+	}
 }
