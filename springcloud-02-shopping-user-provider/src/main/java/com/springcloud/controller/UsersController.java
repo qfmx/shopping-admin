@@ -231,6 +231,9 @@ public class UsersController {
 			Users userLogin = this.usersService.userLogin(userName, userPassword, userStutus, jdictionId);
 			if(userLogin != null) {
 				rv.setCode(0);
+				Map<String,Object> map = new HashMap<>();
+				map.put("userMessage",userLogin);
+				rv.setDataMap(map);
 				return rv;
 			}
 		} catch (Exception e) {
