@@ -51,5 +51,17 @@ public class GoodsServiceImpl implements GoodsService {
 	public List<Goods> selectGroupSum() {
 		return this.goodsMapper.selectGoodsGroup();
 	}
+	@Override
+	public List<Goods> selectGroup() {
+		return this.goodsMapper.selectGoodsGroup();
+	}
+	@Override
+	public List<Goods> selectGoodsHot() {
+		return this.goodsMapper.selectGoodsHot();
+	}
+	@Override
+	public List<Goods> selectGoodsNew() {
+		return this.goodsMapper.selectGoodsNew();
+	}
 	
 }
