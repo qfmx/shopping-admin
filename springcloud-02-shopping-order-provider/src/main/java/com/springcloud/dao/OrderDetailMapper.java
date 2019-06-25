@@ -1,11 +1,17 @@
 package com.springcloud.dao;
 
 import com.springcloud.entity.OrderDetail;
+import com.springcloud.entity.Orders;
+
 import java.util.List;
 
 public interface OrderDetailMapper {
     int deleteByPrimaryKey(Integer orderDetailId);
-
+    /**
+     * 添加商品信息
+     * @param record
+     * @return
+     */
     int insert(OrderDetail record);
 
     OrderDetail selectByPrimaryKey(Integer orderDetailId);
@@ -25,5 +31,11 @@ public interface OrderDetailMapper {
      * @return 商品图片地址
      */
     public abstract List<OrderDetail> selectGoodsPhotoByOrderDetailId(Integer orderDetailId);
+    /**
+     * 批量添加订单明细
+     * @param orders 一组订单的明细
+     * @return
+     */
+    public abstract Integer insertOrderDetail(Orders orders);
     
 }

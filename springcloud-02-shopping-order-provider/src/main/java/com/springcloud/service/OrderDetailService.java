@@ -14,8 +14,8 @@ public interface OrderDetailService {
 	 */
 	public abstract PageInfo<OrderDetail> selctOrderDetailByOrderId(Integer orderId,Integer pageNumber);
 	/**
-	 * 向购物车中添加订单明细的信息
-	 * @param userId
+	 * 	向购物车中添加订单明细的信息
+	 * @param userId 
 	 * @param orderDetails
 	 * @return
 	 */
@@ -26,4 +26,12 @@ public interface OrderDetailService {
 	 * @return
 	 */
 	public abstract List<OrderDetail> selectShopping(Integer userId);
+	/**
+	 * 删除指定用户购物车中的指定商品编号的数据
+	 * @param userId 用户编号
+	 * @param orderDetail 用户返回商品编号
+	 * @return
+	 */
+	public abstract boolean removeShopping(Integer userId,OrderDetail orderDetail);
+	
 }

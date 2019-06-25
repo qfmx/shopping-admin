@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.ListOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -32,6 +33,7 @@ public class OrderDetailServiceImpl implements OrderDetailService {
 		PageHelper.startPage(pageNumber+1, 5); // 直接设置每页显示5条数据
 		return new PageInfo<>(list);
 	}
+	@Transactional
 	@Override
 	public boolean addShopping(Integer userId, OrderDetail orderDetail) {
 		try {
@@ -73,6 +75,7 @@ public class OrderDetailServiceImpl implements OrderDetailService {
 
 			return true;
 		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		return false;
 	}
@@ -85,7 +88,30 @@ public class OrderDetailServiceImpl implements OrderDetailService {
 		List list = opsForList.range("user"+userId, 0, -1); // 获得redis指定键所有的list
 		return list;
 	}
-
-	
-
+	@SuppressWarnings({"unchecked" })
+	@Override
+	public boolean removeShopping(Integer userId, OrderDetail orderDetail) {
+		ListOperations<String,OrderDetail> opsForList = this.redisTemplate.opsForList();
+		// 获得用户编号生成redis中list集合对应的键
+		String key = "user" +userId;
+		// 获得redis中指定键的长度
+		Long size = opsForList.size(key);
+		// 如果没有元素 结束方法
+		if(size == 0) {
+			return false;
+		}
+		// 获得list中所有的元素
+		List<OrderDetail> list = opsForList.range(key, 0, -1);
+		// 在list集合中查找参数首次出现的位置，没找到返回-1
+		int indexOf = list.indexOf(orderDetail);
+		if(indexOf == -1) {
+			return false;
+		}
+		list.remove(indexOf);
+		this.redisTemplate.delete(key);
+		for (OrderDetail Orders : list) {
+			opsForList.rightPush(key, Orders);
+		}
+		return true;
+	}
 }

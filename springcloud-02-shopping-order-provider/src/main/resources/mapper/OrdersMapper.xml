@@ -24,16 +24,19 @@
 		where order_id =
 		#{orderId,jdbcType=INTEGER}
 	</delete>
-	<insert id="insert"
-		parameterType="com.springcloud.entity.Orders">
-		insert into orders (order_id, user_id, consignee_name,
+
+	<insert id="insert" useGeneratedKeys="true"
+		keyProperty="orderId" parameterType="com.springcloud.entity.Orders">
+		insert into orders (user_id,
+		consignee_name,
 		consignee_number, consignee_site, order_time,
 		order_amount,
 		order_status)
-		values (#{orderId,jdbcType=INTEGER},
+		values (
 		#{userId,jdbcType=INTEGER},
 		#{consigneeName,jdbcType=VARCHAR},
-		#{consigneeNumber,jdbcType=CHAR}, #{consigneeSite,jdbcType=VARCHAR},
+		#{consigneeNumber,jdbcType=CHAR},
+		#{consigneeSite,jdbcType=VARCHAR},
 		#{orderTime,jdbcType=TIMESTAMP},
 		#{orderAmount,jdbcType=DOUBLE},
 		#{orderStatus,jdbcType=INTEGER})
@@ -150,7 +153,8 @@
 		select
 		date_format(order_time,'%Y-%m') as order_month,
 		sum(od.transaction_count*transaction_price) as order_price
-		from orders o join order_detail od on o.order_id=od.order_id
+		from orders
+		o join order_detail od on o.order_id=od.order_id
 		where
 		date_format(order_time,'%Y-%m') between #{startMonth} and #{endMonth}
 		group by date_format(order_time,'%Y-%m')

@@ -1,6 +1,7 @@
 package com.springcloud.entity;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -83,4 +84,8 @@ public class Orders implements java.io.Serializable{
      * 统计结果中的销售总额
      */
     private Double orderPrice;
+    /**
+     * 
+     */
+    private List<OrderDetail> orderDetailsList;
 }

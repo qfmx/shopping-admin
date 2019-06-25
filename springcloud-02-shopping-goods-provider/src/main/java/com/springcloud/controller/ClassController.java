@@ -69,7 +69,7 @@ public class ClassController {
 				// 创建Map集合
 				Map<String, Object> map = new HashMap<>();
 				// 将查询结果存入Map集合中
-				map.put("class1", class1);
+				map.put("class1List", class1);
 				map.put("class2", list2); // 类别二的信息
 				// 将Map集合存入ResultValue对象中
 				rv.setDataMap(map);

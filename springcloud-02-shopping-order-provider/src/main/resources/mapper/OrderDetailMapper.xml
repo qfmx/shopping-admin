@@ -52,4 +52,17 @@
 	order_detail o
 	JOIN goods g ON o.goods_id = g.goods_id
   </select>
+  <!-- 批量添加订单信息 -->
+  <insert id="insertOrderDetail" parameterType="com.springcloud.entity.Orders">
+  	insert into order_detail (
+  	order_id, 
+  	goods_id, 
+    goods_name,
+    transaction_price, 
+    transaction_count)
+    values
+    <foreach collection="orderDetailsList" item="orderDtails" separator=",">
+     (#{orderId}, #{orderDtails.goodsId}, #{orderDtails.goodsName}, #{orderDtails.transactionPrice},#{orderDtails.transactionCount})
+    </foreach>
+  </insert>
 </mapper>

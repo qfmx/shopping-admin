@@ -61,7 +61,12 @@ public class orderDetailsController {
 	public ResultValue addShopping(@RequestParam("userId") Integer userId,OrderDetail orderDetail) {
 		ResultValue rv = new ResultValue();
 		try {
-			this.orderDetailService.addShopping(userId, orderDetail);
+			boolean add = this.orderDetailService.addShopping(userId, orderDetail);
+			if(add) {
+				rv.setCode(0);
+				rv.setMessage("购物车添加成功");
+				return rv;
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -91,7 +96,29 @@ public class orderDetailsController {
 			e.printStackTrace();
 		}
 		rv.setCode(1);
-		rv.setMessage("查询购物车失败");
+		rv.setMessage("获取购物车失败");
+		return rv;
+	}
+	/**
+	 * 根据用户编号移除购物车指定商品编号的商品信息
+	 * @param orderDetail
+	 * @param userId
+	 * @return
+	 */
+	@RequestMapping(value = "/removeShopping")
+	public ResultValue removeShopping(OrderDetail orderDetail,@RequestParam("userId") Integer userId) {
+		ResultValue rv = new ResultValue();
+		try {
+			boolean remove = this.orderDetailService.removeShopping(userId, orderDetail);
+			if(remove) {
+				rv.setCode(0);
+				return rv;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		rv.setCode(1);
+		rv.setMessage("移除购物车失败");
 		return rv;
 	}
 }

@@ -23,6 +23,16 @@ public interface OrdersService {
 	 * @return 成功返回大于0的数，失败返回小于等于0的数
 	 */
 	public abstract Integer updateStatus(Orders orders);
-	
+	/**
+	 * 
+	 * @param orders
+	 * @return
+	 */
 	public abstract List<Orders> selectGroupByDate(Orders orders);
+	/**
+	 * 添加订单信息以及订单明细
+	 * @param record
+	 * @return
+	 */
+	public abstract boolean insert(Orders orders);
 }

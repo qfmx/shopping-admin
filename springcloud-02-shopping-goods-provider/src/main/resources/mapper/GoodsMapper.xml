@@ -210,6 +210,7 @@
 	
 	<select id="selectGoodsHot" resultMap="BaseResultMap">
 		SELECT
+		goods_id,
 		goods_name,
 		goods_prices,
 		goods_discount,
@@ -224,6 +225,7 @@
 	</select>
 	<select id="selectGoodsNew" resultMap="BaseResultMap">
 		SELECT
+		goods_id,
 		goods_name,
 		goods_prices,
 		goods_discount,

@@ -167,12 +167,12 @@ public class GoodsController {
 	 * @return
 	 */
 	@RequestMapping(value = "/indexGoodsMessage")
-	public ResultValue selectGoodsHot() {
+	public ResultValue indexGoodsMessage() {
 		ResultValue resultValue = new ResultValue();
 		try {
 			List<Goods> selectGoodsHot = this.goodsService.selectGoodsHot();
 			List<Goods> selectGoodsNew = this.goodsService.selectGoodsNew();
-			if(selectGoodsHot != null && selectGoodsNew!=null && selectGoodsHot.size() > 0 && selectGoodsNew.size() > 0) {
+			if((selectGoodsHot != null && selectGoodsNew!=null) && (selectGoodsHot.size() > 0 && selectGoodsNew.size() > 0)) {
 				resultValue.setCode(0);
 				Map<String,Object> map = new HashMap<>();
 				map.put("goodsHotList", selectGoodsHot);

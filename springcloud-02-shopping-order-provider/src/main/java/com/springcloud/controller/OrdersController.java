@@ -1,11 +1,13 @@
 package com.springcloud.controller;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -109,6 +111,23 @@ public class OrdersController {
 			e.printStackTrace();
 		}
 		
+		rv.setCode(1);
+		return rv;
+	}
+	
+	@RequestMapping(value = "/insert")
+	public ResultValue insert(@RequestBody Orders orders) {
+		ResultValue rv = new ResultValue();
+		orders.setOrderTime(new Date());
+		try {
+			boolean insert = this.ordersService.insert(orders);
+			if(insert) {
+				rv.setCode(0);
+				return rv;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		rv.setCode(1);
 		return rv;
 	}
