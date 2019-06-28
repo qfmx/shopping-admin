@@ -69,4 +69,10 @@ public interface UsersService {
 	 * @return 成功返回Users类型的一行数据，失败返回空
 	 */
 	public abstract Users userLogin(String userName,String userPassword,Integer userStutus,Integer jdictionId);
+	/**
+	 * 查询指定用户编号的用户信息
+	 * @param user 用户信息
+	 * @return
+	 */
+	public abstract Users selectById(Users users);
 }

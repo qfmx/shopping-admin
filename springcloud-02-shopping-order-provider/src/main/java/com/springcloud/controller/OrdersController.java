@@ -123,6 +123,8 @@ public class OrdersController {
 			boolean insert = this.ordersService.insert(orders);
 			if(insert) {
 				rv.setCode(0);
+				Map<String,Object> map = new HashMap<>();
+				map.put("orderId", orders.getOrderId());
 				return rv;
 			}
 		} catch (Exception e) {
@@ -130,5 +132,26 @@ public class OrdersController {
 		}
 		rv.setCode(1);
 		return rv;
+	}
+	
+	@RequestMapping(value = "/selectByUserId")
+	public ResultValue selectByUserId(@RequestParam("userId") Integer userId) {
+		ResultValue rv = new ResultValue();
+		try {
+			List<Orders> list = this.ordersService.selectByUserId(userId);
+			if(list != null && list.size() > 0) {
+				rv.setCode(0);
+				Map<String,Object> map = new HashMap<>();
+				map.put("orderList",list);
+				rv.setDataMap(map);
+				return rv;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		rv.setMessage("获得用户的订单信息失败");
+		rv.setCode(1);
+		return rv;
+		
 	}
 }

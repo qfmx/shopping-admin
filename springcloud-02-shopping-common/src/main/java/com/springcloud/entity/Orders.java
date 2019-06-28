@@ -51,7 +51,7 @@ public class Orders implements java.io.Serializable{
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date orderTime;
     /**
-     * 订单数量
+     * 订单总额，该笔账单的总金额
      */
     private Double orderAmount;
     /**

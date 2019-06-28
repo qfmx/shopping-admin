@@ -98,4 +98,9 @@ public class OrdersServiceImpl implements OrdersService {
 		return false;
 	}
 
+	@Override
+	public List<Orders> selectByUserId(Integer userId) {
+		return this.ordersMapper.selectByUserId(userId);
+	}
+
 }

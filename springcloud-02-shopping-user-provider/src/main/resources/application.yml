@@ -11,5 +11,16 @@ spring:
       max-idle: 10
       max-wait-millis: 2000
   jpa:    show-sql: true
+  mail:
+    host: smtp.126.com
+    username: rainerosion@126.com
+    password: 
+    default-encoding: utf-8
+    properties:
+      mail: 
+        smtp: 
+          auth: true
+          ssl:
+            enable: true
 # 服务注册到eureka服务器   
 eureka:  client:    service-url:      defaultZone: http://127.0.0.1:9000/eureka  

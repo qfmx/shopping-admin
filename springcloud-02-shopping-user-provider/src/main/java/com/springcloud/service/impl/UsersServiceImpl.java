@@ -106,4 +106,8 @@ public class UsersServiceImpl implements UsersService{
 	public Users userLogin(String userName,String userPassword,Integer userStutus,Integer jdictionId) {
 		return this.usersRepository.findByUserNameAndUserPasswordAndUserStatusAndJdictionId(userName, userPassword, userStutus, jdictionId);
 	}
+	@Override
+	public Users selectById(Users users) {
+		return this.usersRepository.getOne(users.getUserId());
+	}
 }

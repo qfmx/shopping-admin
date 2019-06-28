@@ -35,4 +35,10 @@ public interface OrdersService {
 	 * @return
 	 */
 	public abstract boolean insert(Orders orders);
+	/**
+	 * 查询指定用户的订单信息
+	 * @param userId 用户ID
+	 * @return
+	 */
+	public abstract List<Orders> selectByUserId(Integer userId);
 }
